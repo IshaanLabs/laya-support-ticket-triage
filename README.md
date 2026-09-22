@@ -157,15 +157,6 @@ streamlit run dashboard/app.py --server.fileWatcherType none
 
 ---
 
-## Notes
-
-- **English-only** on the English checkpoint keeps the model inside 4 GB of VRAM. The source dataset is ~half German; that portion is dropped rather than half-supported.
-- **Honest evaluation:** the test set is untouched until the final run; calibration temperatures are fit on a separate split.
-- **Zero-shot:** the model is not fine-tuned. Laya's own docs note the base checkpoint sits near-chance until fine-tuning (which lifts it to ~0.77). The story here is calibration, speed, and self-hosting.
-- **Noisy dataset labels:** some "errors" are cases where Laya's prediction is arguably better than the ground-truth label — the dashboard surfaces these.
-- **Urgency** is Laya's weakest primitive; it's reported transparently, not hidden.
-
----
 
 ## Contributing
 
