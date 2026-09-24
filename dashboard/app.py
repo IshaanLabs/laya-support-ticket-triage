@@ -243,22 +243,23 @@ with eval_tab:
             f"value of a calibrated System-1 model over a raw LLM classifier."
         )
 
-        st.markdown("#### 🎚 Coverage vs. accuracy — you choose the operating point")
-        st.caption("Slide the threshold higher to auto-route fewer tickets but with higher accuracy among them. "
-                   "This is the dial a real deployment tunes.")
-        st.pyplot(threshold_tradeoff_fig(df))
-
-        col_a, col_b = st.columns(2)
-        with col_a:
-            st.markdown("#### Department confusion")
-            st.caption("Rows = truth, cols = prediction. Note how IT / Product / Customer Service "
-                       "tickets get pulled into **Technical Support** — those categories genuinely overlap.")
-            st.pyplot(department_confusion_fig(df))
-        with col_b:
-            st.markdown("#### Urgency (3-class)")
-            st.caption(f"Exact accuracy {urg_acc*100:.0f}%. It rarely predicts 'low' — Laya's `score` "
-                       "primitive is its documented weak spot. An honest limitation, not hidden.")
-            st.pyplot(urgency_confusion_fig(df))
+        st.markdown("#### Charts")
+        g1, g2, g3 = st.columns(3)
+        with g1:
+            st.markdown("**Coverage vs. accuracy**")
+            st.pyplot(threshold_tradeoff_fig(df), use_container_width=True)
+            st.caption("Raise the threshold → fewer auto-routed, higher accuracy among them. "
+                       "The dashed line is the default operating point.")
+        with g2:
+            st.markdown("**Department confusion**")
+            st.pyplot(department_confusion_fig(df), use_container_width=True)
+            st.caption("Rows = truth, cols = prediction. IT / Product / Customer Service "
+                       "tickets get pulled into Technical Support — those categories overlap.")
+        with g3:
+            st.markdown("**Urgency (3-class)**")
+            st.pyplot(urgency_confusion_fig(df), use_container_width=True)
+            st.caption(f"Exact accuracy {urg_acc*100:.0f}%. Rarely predicts 'low' — Laya's `score` "
+                       "primitive is its documented weak spot, shown honestly.")
 
         st.markdown("#### Per-department recall")
         recall_rows = []
